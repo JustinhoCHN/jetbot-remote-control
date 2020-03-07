@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+   <meta charset="utf-8">
+   <title></title>
+    
+      
+        
+   </head>
+   <body>
+   
+      <div id="sse" style="height: 200px; width: 1200px; overflow:auto;">
+        <script type="text/javascript">
+
+        window.onload = function WebSocketTest()
+        {
+
+                // 打开一个 web socket
+                var ws = new WebSocket("ws://localhost:5501/websocket");
+
+                ws.onmessage = function (evt) 
+                { 
+                    let content = evt.data;
+                    let messageElem = document.createElement('div');
+                    messageElem.textContent = content;
+                    document.getElementById('sse').prepend(messageElem);
+                };
+            }
+         </script>
+      </div>
+
+      <script src="{{static_url('js/jquery.min.js')}}"></script> <!-- jQuery Library -->
+
+      <!-- Bootstrap -->
+      <script src="{{static_url('js/bootstrap.min.js')}}"></script>
+  
+      <!-- All JS functions -->
+      <script src="{{static_url('js/functions.js')}}"></script>
+      
+   </body>
+</html>

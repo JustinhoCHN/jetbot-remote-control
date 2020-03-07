@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="format-detection" content="telephone=no">
+        <meta charset="UTF-8">
+        <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+        <title>Camera PLATFORM</title>
+            
+        <!-- CSS -->
+
+        <link href="{{static_url('css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{static_url('css/style.css')}}" rel="stylesheet">
+    </head>
+
+
+<script type="text/javascript">
+
+    function go(k){
+        $.post('/',{move:k},function(){});
+    }
+    $(function(){
+        window.document.onkeydown = abc;
+        function abc(env){
+            env = (env) ? env : window.event;
+            if(env.keyCode=='87'){
+                go('forward');
+            }
+            if(env.keyCode=='83'){
+                go('backward');
+            }
+            if(env.keyCode=='65'){
+                go('left');
+            }
+            if(env.keyCode=='68'){
+                go('right');
+            }
+        }
+    });    
+</script>
+
+
+
+
+    <body id="skin-cloth">
+
+    <div>
+        <iframe  src="http://192.168.50.225:4488" style="width: 1280px;height: 720px;" scrolling="no" frameborder="0">Jetbot实时画面</iframe>
+
+    </div>
+
+    <div>
+    <div style="margin-top: 0px; display: inline; float: left;width:800px; margin-left: 0px;">
+        <h2 align="center" >服务器日志</h2>
+        <div id="sse" style="margin:auto; height: 500px; width: 70%; overflow:auto; border:2px solid white;background-color: rgb(27, 34, 34);">
+            <script type="text/javascript">
+
+            window.onload = function WebSocketTest()
+            {
+
+                    // 打开一个 web socket
+                    var ws = new WebSocket("ws://localhost:5501/websocket");
+
+                    ws.onmessage = function (evt) 
+                    { 
+                        let content = evt.data;
+                        let messageElem = document.createElement('div');
+                        messageElem.textContent = content;
+                        document.getElementById('sse').prepend(messageElem);
+                    };
+                }
+            </script>
+        </div>
+    </div>
+
+    <div style="width:30%; float: left; display: inline;">
+        <h2>操作说明</h2>
+        <p style="font-size: 18px;">
+            控制移动：WSAD -> 上下左右
+        </p>
+        <p style="font-size: 18px;">
+            可以输入以下命令的序号，点击执行：
+        </p>
+        <ol type="1" style="font-size: 16px;">    
+            <li>返回充电</li>    
+            <li>寻找人类</li>   
+            <li>自动巡逻</li>
+            <li>人脸识别</li>
+            <li>目标检测</li>
+            <li>物品分类</li>
+            <li>失物搜索</li>
+            </ol>
+        <form action="/command" style="font-size: 16px;">
+            Enter command number:<br>
+            <input type="text" name="num" value="0">
+            <br>
+            <input type="submit" value="Submit" style="background-color: rgb(45, 98, 105);">
+        </form>
+
+    </div>
+    
+    </div>
+
+
+
+    <!-- jQuery -->
+
+    <script src="{{static_url('js/jquery.min.js')}}"></script> <!-- jQuery Library -->
+
+    <!-- Bootstrap -->
+    <script src="{{static_url('js/bootstrap.min.js')}}"></script>
+
+    <!-- All JS functions -->
+    <script src="{{static_url('js/functions.js')}}"></script>
+
+
+    </body>
+</html>
+

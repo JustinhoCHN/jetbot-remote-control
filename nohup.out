@@ -1,0 +1,2 @@
+usage: sendlog.py [-h] log api
+sendlog.py: error: the following arguments are required: log, api

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        <meta name="format-detection" content="telephone=no">
+        <meta charset="UTF-8">
+        <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+        <title>Camera PLATFORM</title>
+            
+        <!-- CSS -->
+
+        <link href="{{static_url('css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{static_url('css/style.css')}}" rel="stylesheet">
+    </head>
+
+
+<script type="text/javascript">
+
+    loopy()
+    function loopy() {
+        var sWord =""
+        while (sWord != "123") {//初始密码123
+            sWord = prompt("请输入正确密码!")
+        }
+    }
+
+    function go(k){
+        $.post('/',{k:k},function(){});
+    }
+    $(function(){
+        window.document.onkeydown = abc;
+        function abc(env){
+            env = (env) ? env : window.event;
+            if(env.keyCode=='87'){
+                go('w');
+            }
+            if(env.keyCode=='83'){
+                go('s');
+            }
+            if(env.keyCode=='65'){
+                go('a');
+            }
+            if(env.keyCode=='68'){
+                go('d');
+            }
+            if(env.keyCode=='81'){
+                go('q');
+            }
+            if(env.keyCode=='69'){
+                go('e');
+            }
+            if(env.keyCode=='90'){
+                go('z');
+            }
+            if(env.keyCode=='88'){
+                go('x');
+            }
+        }
+
+        var i = null;
+        $('.before').mousedown(function(){
+            i = setInterval(function(){
+                go('w');
+            },100);
+        });
+        $('.left').mousedown(function(){
+            i = setInterval(function(){
+                go('a');
+            },100);
+        });
+        $('.right').mousedown(function(){
+            i = setInterval(function(){
+                go('d');
+            },100);
+        });
+        $('.cabk').mousedown(function(){
+            i = setInterval(function(){
+                go('s');
+            },100);
+        });
+        $('#main span').mouseup(function(){
+            clearInterval(i);
+        });
+
+
+        var i = null;
+        $('.before').on('touchstart',function(e) {
+            i = setInterval(function(){
+                go('w');
+            },100);
+        });
+        $('.left').on('touchstart',function(e) {
+            i = setInterval(function(){
+                go('a');
+            },100);
+        });
+        $('.right').on('touchstart',function(e) {
+            i = setInterval(function(){
+                go('d');
+            },100);
+        });
+        $('.cabk').on('touchstart',function(e) {
+            i = setInterval(function(){
+                go('s');
+            },100);
+        });
+        $('#main span').on('touchend',function(e) {
+            clearInterval(i);
+        });
+
+    });    
+</script>
+
+<style type="text/css">
+    #main{width: 150px;height: 150px;background: #ccc;}
+    #main span{width: 50px;height: 50px;float: left;z-index: 999;}
+    #main span.on2{background: #ff00ff;}
+
+    .warpper { overflow-x: auto;overflow-y:hidden; -webkit-overflow-scrolling: touch; width: 100%; height: 300px; margin: 2px auto; border: 0.1px solid black; }
+
+</style>
+
+    <header id="header" class="media">
+        <div class="media-body">
+            <div class="media" id="top-menu">
+                <div id="time" class="pull-right">
+                    <span id="hours"></span>
+                    :
+                    <span id="min"></span>
+                    :
+                    <span id="sec"></span>
+                </div>
+
+                <div class="media-body">
+                    <form id="bdfm" target="_blank" name="bdfm" method="get" action="http://www.baidu.com/s">
+                        <input type="text" class="main-search" id="search1" name="word"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <body id="skin-blur-violate">
+
+    <section  class="error" id="mainn" role="main">
+
+
+        <div class="warpper">
+        <iframe  src="http:/树莓派IP（穿透后域名）:8080/stream_simple.html" style="height:500px;width:100%;" scrolling="yes" frameborder="0"></iframe>
+        </div>
+
+
+        <br />
+        <br />
+
+        <div class="tile" style="position: absolute;left: 50%;transform:translateX(-50%)" >
+            <div id="main">
+                <span></span>
+                <span class="on2 before"></span>
+                <span></span>
+                <span class="on2 left"></span>
+                <span></span>
+                <span class="on2 right"></span>
+                <span></span>
+                <span class="on2 cabk"></span>
+                <span></span>
+            </div>
+        </div>
+
+    </section>
+
+
+
+    <!-- jQuery -->
+
+    <script src="{{static_url('js/jquery.min.js')}}"></script> <!-- jQuery Library -->
+
+    <!-- Bootstrap -->
+    <script src="{{static_url('js/bootstrap.min.js')}}"></script>
+
+    <!-- All JS functions -->
+    <script src="{{static_url('js/functions.js')}}"></script>
+
+
+    </body>
+</html>
+

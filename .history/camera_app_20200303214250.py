@@ -46,7 +46,7 @@ def open_onboard_camera():
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render('templates/camera_index.html')
+        self.render('templates/index.html')
 
 
 class VideoHandler(tornado.web.RequestHandler):
@@ -66,10 +66,42 @@ class VideoHandler(tornado.web.RequestHandler):
                 self.flush()
         
 
+class MotionHandler(tornado.web.RequestHandler):
+    async def get(self):
+        logger.debug('[Motion Handler] GOT IT!!!!!')
+        self.finish('ok!')
+
+class SnapShotHandler(tornado.web.RequestHandler):
+
+    def get(self):
+
+        self.render('templates/index.html')
+        
+        self.set_header('Cache-Control',
+        'no-store, no-cache, must-revalidate, pre-check=0, post-check=0, max-age=0')
+        self.set_header('Connection', 'close')
+        self.set_header('Content-Type', 'multipart/x-mixed-replace;boundary=-boundarydonotcross')
+
+        camera = open_onboard_camera()
+        if camera.isOpened():
+            img = camera.grab()
+            img_bytes =  cv2.imencode('.jpg', img)[1].tobytes()
+            self.write("--boundarydonotcross\n")
+            self.write("Content-type: image/jpeg\r\n")
+            self.write("Content-length: %s\r\n\r\n" % len(img_bytes))
+            self.write(json_encode(str(img_bytes)))
+            # self.flush()
+        # self.finish()
+
 def make_app():
     return tornado.web.Application([
         (r'/',  IndexHandler),
         (r"/video_feed", VideoHandler),
+        (r'/motion', MotionHandler),
+        # (r'/shot', SnapShotHandler),
+        (r'/(?:image)/(.*)', tornado.web.StaticFileHandler, {'path': './image'}),
+        (r'/(?:css)/(.*)', tornado.web.StaticFileHandler, {'path': './css'}),
+        (r'/(?:js)/(.*)', tornado.web.StaticFileHandler, {'path': './js'})
     ], debug=True)
 
 if __name__ == "__main__":
